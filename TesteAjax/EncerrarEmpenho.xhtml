@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</h:head>
+<h:body>
+
+	<h:form id="frm">
+
+		<p:panel id="painel" header="Encerrar empenho">
+			<p:focus context="painel" />
+			<p:messages id="msgs" />
+
+			<h:panelGrid columns="3" id="painelGrid">
+
+				<h:outputLabel for="tipo" value="Tipo: " />
+				<p:selectOneRadio value="#{encerrarEmpenhoBean.empenho.tipo}"
+					required="true" label="Tipo" id="tipo"
+					valueChangeListener="#{encerrarEmpenhoBean.empenhoTipoModificado}"
+					onchange="jsf.ajax.request(this, event, {execute: '@form', render: 'frm:painel'})"
+					immediate="true">
+					<f:selectItems value="#{encerrarEmpenhoBean.tipoEmpenho}"
+						var="tipoEmpenho" itemLabel="#{tipoEmpenho.descricao}"
+						itemValue="#{tipoEmpenho}" />
+				</p:selectOneRadio>
+				<p:message for="tipo" display="icon" />
+
+				<h:outputLabel for="branca" value="Arma branca: *"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+				<p:spinner id="branca" required="true"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}"
+					value="#{encerrarEmpenhoBean.empenho.armaBranca}" min="0" max="100" />
+				<p:message for="branca" display="icon"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+
+				<h:outputLabel for="fogo" value="Arma de fogo: *"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+				<p:spinner id="fogo" required="true"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}"
+					value="#{encerrarEmpenhoBean.empenho.armaFogo}" min="0" max="100" />
+				<p:message for="fogo" display="icon"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+
+				<h:outputLabel for="menor" value="Menor: *"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+				<p:spinner id="menor" required="true"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}"
+					value="#{encerrarEmpenhoBean.empenho.menor}" min="0" max="100" />
+				<p:message for="menor" display="icon"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+
+				<h:outputLabel for="prisao" value="Prisões: *"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+				<p:spinner id="prisao" required="true"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}"
+					value="#{encerrarEmpenhoBean.empenho.prisao}" min="0" max="100" />
+				<p:message for="prisao" display="icon"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+
+				<h:outputLabel for="drogas" value="Drogas: "
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+				<p:inputTextarea id="drogas"
+					value="#{encerrarEmpenhoBean.empenho.drogas}"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo.descricao eq 'BO'}"
+					cols="30" rows="4" />
+				<p:message for="drogas" display="icon"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+
+				<h:outputLabel for="reds" value="Reds: "
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+				<p:inputMask mask="9999-999999999-999" required="true" id="reds"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+				<p:message for="reds" display="icon"
+					rendered="#{encerrarEmpenhoBean.empenho.tipo eq 'BO'}" />
+
+				<p:commandButton value="Salvar" update="frm"
+					actionListener="#{encerrarEmpenhoBean.salvar}">
+					<f:ajax execute="@form" render="@all" />
+				</p:commandButton>
+
+			</h:panelGrid>
+
+		</p:panel>
+
+	</h:form>
+
+
+</h:body>
+</html>
